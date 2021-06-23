@@ -6,13 +6,13 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 00:31:59 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/21 17:18:22 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/23 22:40:12 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-size_t					ft_strlen(const char *s)
+size_t		ft_strlen(const char *s)
 {
 	size_t length;
 
@@ -25,70 +25,67 @@ size_t					ft_strlen(const char *s)
 	return (length);
 }
 
-static	int				ft_intlen(unsigned int n)
+static	int	ft_isspace(char c)
 {
-	int	length;
-
-	if (n == 0)
+	if (c == '\t')
 		return (1);
-	length = 0;
-	while (n != 0)
-	{
-		n = n / 10;
-		length++;
-	}
-	return (length);
+	if (c == '\n')
+		return (1);
+	if (c == '\v')
+		return (1);
+	if (c == '\f')
+		return (1);
+	if (c == '\r')
+		return (1);
+	if (c == ' ')
+		return (1);
+	return (0);
 }
 
-static	void			ft_reverse(char *str)
+int			ft_atoi(const char *str)
 {
-	size_t	length;
-	size_t	index;
-	char	temp;
+	int			result;
+	int			isminus;
 
-	length = ft_strlen(str);
-	index = 0;
-	while (index < length / 2)
+	result = 0;
+	isminus = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		temp = str[index];
-		str[index] = str[length - index - 1];
-		str[length - index - 1] = temp;
+		if (*str == '-')
+			isminus = 1;
+		str++;
+	}
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			break ;
+		result = result * 10;
+		result = result + (*str - '0');
+		str++;
+	}
+	if (isminus == 1)
+		return (-1 * result);
+	return (result);
+}
+
+static void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t				index;
+	unsigned	char	*p;
+
+	p = (unsigned char *)b;
+	index = 0;
+	while (index < len)
+	{
+		p[index] = (unsigned char)c;
 		index++;
 	}
+	return (b);
 }
 
-static	unsigned int	ft_ui(int n)
+void		ft_bzero(void *s, size_t n)
 {
-	if (n < 0)
-		return (-1 * n);
-	return (n);
-}
-
-char					*ft_itoa(int n)
-{
-	unsigned int	result;
-	char			*ret;
-	size_t			index;
-	size_t			length;
-
-	result = ft_ui(n);
-	length = ft_intlen(result);
-	if (n < 0)
-		length++;
-	ret = (char *)malloc(sizeof(char) * (length + 1));
-	if (!ret)
-		return (0);
-	index = 0;
-	if (result == 0)
-		ret[index++] = '0';
-	while (result != 0)
-	{
-		ret[index++] = (result % 10) + '0';
-		result = result / 10;
-	}
-	if (n < 0)
-		ret[index++] = '-';
-	ret[index] = '\0';
-	ft_reverse(ret);
-	return (ret);
+	ft_memset(s, 0, n);
 }
