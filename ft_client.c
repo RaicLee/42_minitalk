@@ -6,7 +6,7 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 00:32:47 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/23 15:48:11 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/25 01:31:29 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 void	ft_success(int signal)
 {
 	(void)signal;
-	write(1, "[SYSTEM] Data Received\n", 23);
+	ft_putstr_fd("[SYS] server has received the data", 1);
 }
 
-void	ft_error(char *error)
+void	ft_error(char *msg)
 {
-	write(2, error, ft_strlen(error));
+	ft_putstr_fd(msg, 2);
 	exit(1);
 }
 
 void	ft_sendchar(int pid, unsigned char data)
 {
-	uint8_t	counter;
+	int	counter;
 
-	counter = 1 << 6;
+	counter = 1 << 15;
 	while (counter)
 	{
 		if (data & counter)
@@ -42,7 +42,7 @@ void	ft_sendchar(int pid, unsigned char data)
 				ft_error("[SYS] bad pid error\n");
 		}
 		counter = counter >> 1;
-		usleep(600);
+		usleep(60);
 	}
 }
 
@@ -59,17 +59,12 @@ void	ft_handler(int pid, char *data)
 
 int		main(int argc, char **argv)
 {
-	int		pid;
-	char	*message;
-
 	if (argc != 3)
 	{
-		write(1, "[USAGE] ./client server-pid message\n", 36);
+		ft_putstr_fd("[USAGE] ./client [server-pid] [message]", 1);
 		exit(0);
 	}
 	signal(SIGUSR1, ft_success);
-	pid = ft_atoi(argv[1]);
-	message = argv[2];
-	ft_handler(pid, message);
+	ft_handler(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }
