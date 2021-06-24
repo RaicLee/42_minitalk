@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/17 00:31:59 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/23 22:40:12 by jealee           ###   ########.fr       */
+/*   Created: 2020/12/22 23:45:50 by jealee            #+#    #+#             */
+/*   Updated: 2020/12/23 17:47:27 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minitalk.h"
-
-size_t		ft_strlen(const char *s)
-{
-	size_t length;
-
-	length = 0;
-	while (*s)
-	{
-		length++;
-		s++;
-	}
-	return (length);
-}
 
 static	int	ft_isspace(char c)
 {
@@ -68,24 +53,4 @@ int			ft_atoi(const char *str)
 	if (isminus == 1)
 		return (-1 * result);
 	return (result);
-}
-
-static void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t				index;
-	unsigned	char	*p;
-
-	p = (unsigned char *)b;
-	index = 0;
-	while (index < len)
-	{
-		p[index] = (unsigned char)c;
-		index++;
-	}
-	return (b);
-}
-
-void		ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
 }

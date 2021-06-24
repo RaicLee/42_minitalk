@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/23 15:07:41 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/23 15:08:07 by jealee           ###   ########.fr       */
+/*   Created: 2020/12/23 02:07:12 by jealee            #+#    #+#             */
+/*   Updated: 2020/12/26 13:42:50 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
 static	int				ft_intlen(unsigned int n)
 {
