@@ -6,7 +6,7 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 22:38:25 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/25 14:04:59 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/25 23:26:22 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef	struct		s_message
 {
 	char			message[MSGBUFSIZE];
 	unsigned int	top_bit;
-	int				top_byte;
+	int				index;
 	int				end;
 	int				over;
 }					t_message;

@@ -6,7 +6,7 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 00:32:47 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/25 14:34:46 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/25 23:29:10 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_sendchar(int pid, unsigned char data)
 				ft_error("[ERR] bad pid error\n");
 		}
 		counter = counter >> 1;
-		usleep(600);
+		usleep(60);
 	}
 }
 
