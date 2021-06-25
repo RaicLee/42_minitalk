@@ -6,7 +6,7 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 00:32:30 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/25 14:31:08 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/25 23:25:14 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	ft_bit_activate(int sig, siginfo_t *info, void *context)
 	(void)sig;
 	(void)info;
 	(void)context;
-	if (g_message.top_bit == 0)
+	if (!g_message.top_bit)
 	{
 		g_message.top_bit = 1 << 15;
 		g_message.top_byte += 1;
 	}
 	g_message.message[g_message.top_byte] += g_message.top_bit;
 	g_message.top_bit >>= 1;
-	if (g_message.top_byte == MSGBUFSIZE - 2 && g_message.top_bit == 0)
+	if (g_message.top_byte == MSGBUFSIZE - 2 && !g_message.top_bit)
 		g_message.over = 1;
 }
 
@@ -32,15 +32,15 @@ void	ft_bit_deactivate(int sig, siginfo_t *info, void *context)
 {
 	(void)sig;
 	(void)context;
-	if (g_message.top_bit == 0)
+	if (!g_message.top_bit)
 	{
 		g_message.top_bit = 1 << 15;
 		g_message.top_byte += 1;
 	}
 	g_message.top_bit >>= 1;
-	if (g_message.top_byte == MSGBUFSIZE - 2 && g_message.top_bit == 0)
+	if (g_message.top_byte == MSGBUFSIZE - 2 && !g_message.top_bit)
 		g_message.over = 1;
-	else if (g_message.message[g_message.top_byte] == 0 && g_message.top_bit == 0)
+	else if (!g_message.message[g_message.top_byte] && !g_message.top_bit)
 	{
 		g_message.end = 1;
 		kill(info->si_pid, SIGUSR1);
