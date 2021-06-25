@@ -6,7 +6,7 @@
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 00:32:47 by jealee            #+#    #+#             */
-/*   Updated: 2021/06/25 01:31:29 by jealee           ###   ########.fr       */
+/*   Updated: 2021/06/25 14:14:34 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_success(int signal)
 {
 	(void)signal;
-	ft_putstr_fd("[SYS] server has received the data", 1);
+	ft_putstr_fd("[SYS] server has received the data\n", 1);
 }
 
 void	ft_error(char *msg)
@@ -26,7 +26,7 @@ void	ft_error(char *msg)
 
 void	ft_sendchar(int pid, unsigned char data)
 {
-	int	counter;
+	unsigned int	counter;
 
 	counter = 1 << 15;
 	while (counter)
@@ -42,18 +42,22 @@ void	ft_sendchar(int pid, unsigned char data)
 				ft_error("[SYS] bad pid error\n");
 		}
 		counter = counter >> 1;
-		usleep(60);
+		usleep(100);
 	}
 }
 
 void	ft_handler(int pid, char *data)
 {
-	while (*data)
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(data);
+	while (i <= len)
 	{
-		ft_sendchar(pid, *data);
-		data++;
+		ft_sendchar(pid, data[i]);	
+		i++;
 	}
-	ft_sendchar(pid, *data);
 	return ;
 }
 
@@ -61,7 +65,7 @@ int		main(int argc, char **argv)
 {
 	if (argc != 3)
 	{
-		ft_putstr_fd("[USAGE] ./client [server-pid] [message]", 1);
+		ft_putstr_fd("[USAGE] ./client [server-pid] [message]\n", 1);
 		exit(0);
 	}
 	signal(SIGUSR1, ft_success);
