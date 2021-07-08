@@ -32,11 +32,6 @@ endif
 all : $(NAME)
 
 $(NAME)	: $(LIBFT) $(SERVER) $(CLIENT)
-ifdef WITH_BONUS
-	@rm -f ft_server.o ft_client.o
-else
-	@rm -f ft_server_bonus.o ft_client_bonus.o
-endif
 
 $(BONUS) : 
 	@make WITH_BONUS=1 all
