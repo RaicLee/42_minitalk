@@ -11,10 +11,7 @@
 # **************************************************************************** #
 
 SERVER   = server
-SERVER_OBJ = 
-SERVER_BONUS = bserver
 CLIENT   = client
-CLIENT_BONUS = bclient
 
 CC	     = gcc
 FLAGS    = -Wall -Werror -Wextra -c
@@ -23,6 +20,7 @@ NAME     = minitalk
 LIBFT	 = libft.a
 LIB		 = -L./libft -lft
 BONUS	 = bonus
+
 ifdef WITH_BONUS 
 	SERVER_OBJ = ft_server_bonus.o
 	CLIENT_OBJ = ft_client_bonus.o
@@ -34,10 +32,15 @@ endif
 all : $(NAME)
 
 $(NAME)	: $(LIBFT) $(SERVER) $(CLIENT)
+ifdef WITH_BONUS
+	@rm -f ft_server.o ft_client.o
+else
+	@rm -f ft_server_bonus.o ft_client_bonus.o
+endif
 
 $(BONUS) : 
 	@make WITH_BONUS=1 all
-
+	
 $(LIBFT)  :
 	@make -C libft
 
