@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_server.c                                        :+:      :+:    :+:   */
+/*   ft_server_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jealee <jealee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/17 00:32:30 by jealee            #+#    #+#             */
-/*   Updated: 2021/07/01 18:44:31 by jealee           ###   ########.fr       */
+/*   Created: 2021/07/08 15:42:19 by jealee            #+#    #+#             */
+/*   Updated: 2021/07/08 15:42:29 by jealee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 void	ft_bit_activate(int sig, siginfo_t *info, void *context)
 {
