@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 SERVER   = server
+SERVER_OBJ = 
 SERVER_BONUS = bserver
 CLIENT   = client
 CLIENT_BONUS = bclient
@@ -22,30 +23,32 @@ NAME     = minitalk
 LIBFT	 = libft.a
 LIB		 = -L./libft -lft
 BONUS	 = bonus
+ifdef WITH_BONUS 
+	SERVER_OBJ = ft_server_bonus.o
+	CLIENT_OBJ = ft_client_bonus.o
+else
+	SERVER_OBJ = ft_server.o
+	CLIENT_OBJ = ft_client.o
+endif
 
 all : $(NAME)
 
 $(NAME)	: $(LIBFT) $(SERVER) $(CLIENT)
 
-$(BONUS) : $(LIBFT) $(SERVER_BONUS) $(CLIENT_BONUS)
+$(BONUS) : 
+	@make WITH_BONUS=1 all
 
 $(LIBFT)  :
 	@make -C libft
 
-$(SERVER) : ft_server.o 
-	@$(CC) ft_server.o $(LIB) -o $@
-	@echo "[SYSTEM] server program build complete\n"
-$(SERVER_BONUS): ft_server_bonus.o
-	@$(CC) ft_server_bonus.o $(LIB) -o server
-	@echo "[BONUS SYSTEM] server program build complete\n"
-
-$(CLIENT) : ft_client.o 
-	@$(CC) ft_client.o $(LIB) -o $@
+$(SERVER) : $(SERVER_OBJ) 
+	@$(CC) $< $(LIB) -o $@
 	@echo "[SYSTEM] client program build complete\n"
-$(CLIENT_BONUS): ft_client_bonus.o
-	@$(CC) ft_client_bonus.o $(LIB) -o client
-	@echo "[BONUS SYSTEM] client program build complete\n"
-
+	
+$(CLIENT) : $(CLIENT_OBJ)
+	@$(CC) $< $(LIB) -o $@
+	@echo "[SYSTEM] client program build complete\n"
+	
 %.o : %.c
 	@$(CC) $(FLAGS) $< -o $@ -I. 
 
